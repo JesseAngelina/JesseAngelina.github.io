@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jesse's portfolio</title>
+    <link rel="icon" href="https://framerusercontent.com/images/YSdobC45mkoLCNuWcMVS8P7xoXg.png" type="image/png">
+    <style>
+        body {
+            background-color: rgb(238,235,230);
+            padding : 25px 50px;
+            margin: 0;
+        }
+
+        h1{
+            font-size: 2.4em;
+        }
+        h2 {
+            font-size: 2em;
+            text-align: center;
+        }
+        h3 {
+            font-size: 1.6em;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        button {
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        #home {
+            background-image: linear-gradient(to bottom, rgb(255,252,250), rgb(238, 235, 230));
+            padding : 50px;
+            border-radius: 50px;
+        }
+        #nav {
+            display: flex;
+            justify-content: center;
+            gap : 50px;
+        }
+        #nav > span {
+            cursor: pointer;
+        }
+        #home > div:last-of-type {
+            display : grid;
+            grid-template-columns: 1fr 500px;
+            margin : 100px;
+        }
+        #home > div:last-of-type > div:first-of-type {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+        }
+        #home button {
+            border : none;
+            color : white;
+            background-color: black;
+            border-radius: 30px/50%;
+            padding : 20px 30px;
+            margin-top : 50px;
+        }
+        #home button:hover {
+            box-shadow: 0 0 25px black;
+        }
+        #home img {
+            border-radius: 25px;
+        }
+
+        #tools {
+            margin : 150px;
+            max-width : 1600px;
+        }
+        #tools > div {
+            position: relative;
+            height : 100px;
+            mask-image: linear-gradient(to right, rgba(0,0,0,0) 10%, rgb(0,0,0) 25%, rgb(0,0,0) 75%, rgba(0,0,0,0) 90%);
+            overflow: hidden;
+        }
+        #tools > div > div {
+            position : absolute;
+            width : 50px;
+            height : 50px;
+            padding : 25px;
+            border-radius : 25px;
+            background-color: rgb(255,252,250);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #tools img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        #education {
+            background-image: linear-gradient(to bottom, rgb(255,252,250), rgb(238, 235, 230));
+            padding : 100px 200px;
+            border-radius: 100px;
+        }
+        #education > div:first-of-type {
+            text-align: right;
+        }
+        #education input {
+            display: none;
+        }
+        #education label {
+            color : gray;
+            padding : 5px;
+            margin : 10px;
+            border-bottom : 2px solid gray;
+            cursor : pointer;
+        }
+        #education input:checked + label {
+            color : black;
+            border-bottom-color : black;
+        }
+
+        #certifications {
+            position: relative;
+            background-image: linear-gradient(to top, rgb(255,252,250), rgb(238, 235, 230));
+            padding : 100px 200px;
+            border-radius: 100px;
+            height : 2050px;
+            margin-bottom: 100px;
+        }
+        #certifications > div {
+            position: absolute;
+            width : calc(100vw - 600px);
+            height: 500px;
+            padding : 50px;
+            border-radius: 50px;
+            background-color: white;
+            transition: transform 0.5s ease-in-out;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        #certifications > div > div {
+            height : 450px;
+            overflow-y: scroll;
+        }
+        #certifications > div > img {
+            margin-left: 5%;
+            max-width : 95%;
+            max-height : 80%;
+            border-radius: 25px;
+        }
+        #certifications span {
+            display : flex;
+            align-items: center;
+            padding : 15px 25px;
+            border-radius: 25px/50%;
+            background-color: rgba(191,191,191,0.2);
+            margin : 15px 0;
+        }
+        #certifications > div > p {
+            position: absolute;
+            left : 50px;
+            bottom : 50px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+        #certifications > div > p > img {
+            max-height : 25px;
+        }
+
+        #projects {
+            position: relative;
+            background-image: linear-gradient(to bottom, rgb(255,252,250), rgb(238, 235, 230));
+            padding : 100px 200px;
+            border-radius: 100px;
+            margin-top: 100px;
+        }
+        #projects > div {
+            height: 50vh;
+            width : calc(50% - 50px);
+            margin : 25vh 0;
+            display: flex;
+            align-items: center;
+        }
+        #projects > img {
+            position: absolute;
+            top : calc(50vh + 164px);
+            right : 300px;
+            width : calc(50% - 300px);
+            opacity: 0;
+            transform: translateY(-50%);
+            transition: opacity 0.5s ease-in-out;
+            border-radius: 25px;
+        }
+        #projects p {
+            text-align: justify;
+        }
+
+
+        #skills {
+            background-image: linear-gradient(to top, rgb(255,252,250), rgb(238, 235, 230));
+            width: calc(100vw - 500px);
+            padding : 100px 200px;
+            border-radius: 100px;
+            overflow-x: scroll;
+            display: flex;
+            flex-direction: column;
+        }
+        #skills > div {
+            display: grid;
+            grid-template-columns: repeat(4, calc(25vw - 150px));
+            grid-template-rows: repeat(5, calc(12.5vw - 75px));
+            gap : 10px;
+            align-self: center;
+        }
+        #skills > div > div {
+            border-radius: 10px;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        #skills > div > div[style="grid-row : span 2"] > * {
+            position: absolute;
+            top : 50%;
+            left : 50%;
+            transform: translate(-50%, -50%);
+            width : 100%;
+            height : 100%;
+        }
+        #skills > div > div[style="grid-row : span 2"] > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8em;
+            color : white;
+        }
+        #skills > div > div[style^="grid-row : span 3"] {
+            padding : 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: end;
+        }
+        #skills > div > div[style^="grid-row : span 3"] > div {
+            font-size: 1.5em;
+        }
+
+        #contact {
+            display: flex;
+            justify-content: space-evenly;
+            background-image: linear-gradient(to top, rgb(255,252,250), rgb(238, 235, 230));
+            padding : 50px;
+            border-radius : 25px;
+        }
+        #contact > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width : 250px;
+            border-bottom : 1px solid black;
+            cursor: pointer;
+        }
+        #contact > div > div {
+            display: flex;
+            align-items: center;
+            gap : 10px;
+            user-select: none;
+        }
+        #contact img {
+            max-width : 25px;
+            max-height : 25px;
+        }
+    </style>
+</head>
+<body>
+    <div id="home">
+        <div id="nav">
+            <span onclick="window.location.hash='#education'">Education</span>
+            <span onclick="window.location.hash='#certifications'">Certifications</span>
+            <span onclick="window.location.hash='#projects'">Projects</span>
+            <span onclick="window.location.hash='#skills'">Skills</span>
+            <span onclick="window.location.hash='#contact'">Contact</span>
+        </div>
+        <div>
+            <div>
+                <h1>Palakonda Jesse Angelina</h1>
+                <p style="margin-right : 50px;">As a Computer Science student passionate about technology's evolving landscape, I excel at solving real-world problems through innovative coding, algorithm design, and user interface development. Driven to make an impact in the tech industry, I am seeking opportunities to apply my analytical skills and creativity through internships, collaborative projects, or full-time roles.</p>
+                <button onclick="window.location='https://drive.google.com/file/d/17BNlBJJ9k-dvo2rI9G4ujHJsMhJ7y_G0/preview'">view my resume</button>
+            </div>
+            <div>
+                <img src="https://media.licdn.com/dms/image/v2/D5603AQFhQOdXEhDJXQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1731166393177?e=1738800000&v=beta&t=fD4NAccm8_SdEU6MdMwZChQZayrBa1IR-tw--r4cqqg" width="100%">
+            </div>
+        </div>
+    </div>
+    <div id="tools">
+        <p style="text-align:center">Tools which I use on a daily basis</p>
+        <div>
+            <div style="left:0px" title="Figma">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Figma-logo.svg/1200px-Figma-logo.svg.png">
+            </div>
+            <div style="left:200px" title="Framer">
+                <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/framer-color-icon.png">
+            </div>
+            <div style="left:400px" title="Relume">
+                <img src="https://cdn.prod.website-files.com/6177739448baa66404ce1d9c/65ab316a98b1254dc17f79f1_relume%20logo%20symbol%20with%20shadow.png">
+            </div>
+            <div style="left:600px" title="Webflow">
+                <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/webflow-icon.png">
+            </div>
+            <div style="left:800px" title="Hotjar">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968867.png">
+            </div>
+            <div style="left:1000px" title="Fireflies AI">
+                <img src="https://fireflies.ai/logo.png">
+            </div>
+            <div style="left:1200px" title="Spline">
+                <img src="https://june-changelog.s3.eu-central-1.amazonaws.com/spline_icon_twitter_removebg_preview_db2832210b.png">
+            </div>
+        </div>
+    </div>
+    <div id="education">
+        <h2>Education</h2>
+        <div>
+            <input type="radio" name="edu" id="X" checked>
+            <label for="X" onclick="change_edu(1)">10th</label>
+            <input type="radio" name="edu" id="XII">
+            <label for="XII" onclick="change_edu(2)">12th</label>
+            <input type="radio" name="edu" id="B">
+            <label for="B" onclick="change_edu(3)">B.Tech</label>
+        </div>
+        <div>
+            <h3>Timpany Steel City School</h3>
+            <p>CBSE Standards</p>
+            <p>Percentage: 89.2</p>
+            <p>June 2019 - May 2020</p>
+        </div>
+        <div>
+            <h3>Torque Junior College</h3>
+            <p>MPC Stream</p>
+            <p>Percentage: 96.3</p>
+            <p>June 2020 - May 2022</p>
+        </div>
+        <div>
+            <h3>Vellore Institute of Technology - Amaravati</h3>
+            <p>CSE with AI&ML</p>
+            <p>CGPA : 8.46</p>
+            <p>August 2022 - May 2026</p>
+        </div>
+    </div>
+    <div id="certifications">
+        <h2>Certifications</h2>
+        <div style="top:200px; background-color:rgb(255,225,225)">
+            <div>
+                <h3>MERN Full Stack</h3>
+                <p>The MERN Stack Certification offered by Ethnus Codemithra is a comprehensive program designed to equip learners with essential skills for full-stack development.</p>
+                <div>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24" color="rgb(150,100,100)" style="user-select: none; width: 20px; height: 100%; display: inline-block; fill: rgb(150, 100, 100); flex-shrink: 0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.95 8.23l-5.66 5.66c-.39.39-1.02.39-1.41 0l-2.83-2.83a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l2.12 2.12 4.95-4.95c.39-.39 1.02-.39 1.41 0 .4.39.4 1.02.01 1.41z"></path></svg>
+                        &nbsp; MongoDB
+                    </span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24" color="rgb(150,100,100)" style="user-select: none; width: 20px; height: 100%; display: inline-block; fill: rgb(150, 100, 100); flex-shrink: 0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.95 8.23l-5.66 5.66c-.39.39-1.02.39-1.41 0l-2.83-2.83a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l2.12 2.12 4.95-4.95c.39-.39 1.02-.39 1.41 0 .4.39.4 1.02.01 1.41z"></path></svg>
+                        &nbsp; ExpressJS
+                    </span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24" color="rgb(150,100,100)" style="user-select: none; width: 20px; height: 100%; display: inline-block; fill: rgb(150, 100, 100); flex-shrink: 0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.95 8.23l-5.66 5.66c-.39.39-1.02.39-1.41 0l-2.83-2.83a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l2.12 2.12 4.95-4.95c.39-.39 1.02-.39 1.41 0 .4.39.4 1.02.01 1.41z"></path></svg>
+                        &nbsp; ReactJS
+                    </span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24" color="rgb(150,100,100)" style="user-select: none; width: 20px; height: 100%; display: inline-block; fill: rgb(150, 100, 100); flex-shrink: 0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.95 8.23l-5.66 5.66c-.39.39-1.02.39-1.41 0l-2.83-2.83a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l2.12 2.12 4.95-4.95c.39-.39 1.02-.39 1.41 0 .4.39.4 1.02.01 1.41z"></path></svg>
+                        &nbsp; NodeJS
+                    </span>
+                </div>
+            </div>
+            <img src="C1.jpeg">
+            <p onclick="window.location='https://drive.google.com/file/d/1fzuk9FomcBO-4bFN-aX2PvmKFxhzmvZQ/preview'">view certificate &nbsp;<img src="https://static.thenounproject.com/png/888647-200.png"></p>
+        </div>
+        <div style="top:850px; background-color:rgb(225,255,225)">
+            <div>
+                <h3>Google UX design : Professional Certificate</h3>
+                <p>Mastered UX design fundamentals, including user research, accessibility, and iterative design processes, through the Google UX Design Professional Certificate.</p>
+                <div>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24" color="rgb(100,150,100)" style="user-select: none; width: 20px; height: 100%; display: inline-block; fill: rgb(100, 150, 100); flex-shrink: 0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.95 8.23l-5.66 5.66c-.39.39-1.02.39-1.41 0l-2.83-2.83a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l2.12 2.12 4.95-4.95c.39-.39 1.02-.39 1.41 0 .4.39.4 1.02.01 1.41z"></path></svg>
+                        &nbsp; User Research & Empathy
+                    </span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24" color="rgb(100,150,100)" style="user-select: none; width: 20px; height: 100%; display: inline-block; fill: rgb(100, 150, 100); flex-shrink: 0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.95 8.23l-5.66 5.66c-.39.39-1.02.39-1.41 0l-2.83-2.83a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l2.12 2.12 4.95-4.95c.39-.39 1.02-.39 1.41 0 .4.39.4 1.02.01 1.41z"></path></svg>
+                        &nbsp; Wireframing & Prototyping
+                    </span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24" color="rgb(100,150,100)" style="user-select: none; width: 20px; height: 100%; display: inline-block; fill: rgb(100, 150, 100); flex-shrink: 0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.95 8.23l-5.66 5.66c-.39.39-1.02.39-1.41 0l-2.83-2.83a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l2.12 2.12 4.95-4.95c.39-.39 1.02-.39 1.41 0 .4.39.4 1.02.01 1.41z"></path></svg>
+                        &nbsp; Visual Design Principles
+                    </span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24" color="rgb(100,150,100)" style="user-select: none; width: 20px; height: 100%; display: inline-block; fill: rgb(100, 150, 100); flex-shrink: 0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.95 8.23l-5.66 5.66c-.39.39-1.02.39-1.41 0l-2.83-2.83a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l2.12 2.12 4.95-4.95c.39-.39 1.02-.39 1.41 0 .4.39.4 1.02.01 1.41z"></path></svg>
+                        &nbsp; UX Design Process
+                    </span>
+                </div>
+            </div>
+            <img src="C2.jpeg">
+            <p onclick="window.location='https://drive.google.com/file/d/1kdvpchIFtvgLshPzcKOto9ofIjXeXch_/preview'">view certificate &nbsp;<img src="https://static.thenounproject.com/png/888647-200.png"></p>
+        </div>
+        <div style="top:1500px; background-color:rgb(225,225,255)">
+            <div>
+                <h3>Microsoft Front-End Developer Professional Certificate</h3>
+                <p>Gained hands-on experience creating dynamic, user-friendly web applications using modern frameworks and tools like React and Visual Studio Code.</p>
+                <div>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24" color="rgb(100,100,150)" style="user-select: none; width: 20px; height: 100%; display: inline-block; fill: rgb(100, 100, 150); flex-shrink: 0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.95 8.23l-5.66 5.66c-.39.39-1.02.39-1.41 0l-2.83-2.83a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l2.12 2.12 4.95-4.95c.39-.39 1.02-.39 1.41 0 .4.39.4 1.02.01 1.41z"></path></svg>
+                        &nbsp; Web Development Fundamentals
+                    </span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24" color="rgb(100,100,150)" style="user-select: none; width: 20px; height: 100%; display: inline-block; fill: rgb(100, 100, 150); flex-shrink: 0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.95 8.23l-5.66 5.66c-.39.39-1.02.39-1.41 0l-2.83-2.83a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l2.12 2.12 4.95-4.95c.39-.39 1.02-.39 1.41 0 .4.39.4 1.02.01 1.41z"></path></svg>
+                        &nbsp; Front-End Frameworks and Libraries
+                    </span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24" color="rgb(100,100,150)" style="user-select: none; width: 20px; height: 100%; display: inline-block; fill: rgb(100, 100, 150); flex-shrink: 0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.95 8.23l-5.66 5.66c-.39.39-1.02.39-1.41 0l-2.83-2.83a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l2.12 2.12 4.95-4.95c.39-.39 1.02-.39 1.41 0 .4.39.4 1.02.01 1.41z"></path></svg>
+                        &nbsp; Version Control and Collaboration
+                    </span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24" color="rgb(100,100,150)" style="user-select: none; width: 20px; height: 100%; display: inline-block; fill: rgb(100, 100, 150); flex-shrink: 0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.95 8.23l-5.66 5.66c-.39.39-1.02.39-1.41 0l-2.83-2.83a.9959.9959 0 0 1 0-1.41c.39-.39 1.02-.39 1.41 0l2.12 2.12 4.95-4.95c.39-.39 1.02-.39 1.41 0 .4.39.4 1.02.01 1.41z"></path></svg>
+                        &nbsp; Performance Optimization and Debugging
+                    </span>
+                </div>
+            </div>
+            <img src="C3.jpeg">
+            <p onclick="window.location=''">view certificate &nbsp;<img src="https://static.thenounproject.com/png/888647-200.png"></p>
+        </div>
+    </div>
+    <div id="projects">
+        <h2>Projects</h2>
+        <div>
+            <div>
+                <h3>Vehicle to Vehicle communication using aurdino</h3>
+                <span>August 2024 - November 2024</span>
+                <p>Detecting gas using a Raspberry pi can be achieved by interfacing gas sensors with the Raspberry pi and writing a program to monitor and analyze sensor readings.</p>
+                <ul>
+                    <li>Internet of Things (IoT)</li>
+                </ul>
+            </div>
+        </div>
+        <img style="opacity: 1;" src="P1.jpeg">
+        <div>
+            <div>
+                <h3>E-Fashion</h3>
+                <span>Aug 2024 - Present</span>
+                <p>Designed and developed an e-commerce platform dedicated to the fashion industry. The site features a user-friendly interface, a seamless shopping experience, secure payment gateways, and responsive design for optimal performance across devices. Integrated advanced search filters, personalized recommendations, and a dynamic product catalog. Focused on delivering a visually appealing and efficient customer journey from product discovery to checkout.</p>
+                <ul>
+                    <li>Web Development</li>
+                    <li>Database Management System</li>
+                    <li>UI/UX Design</li>
+                </ul>
+            </div>
+        </div>
+        <img src="P2.jpeg">
+        <div>
+            <div>
+                <h3>Cancer Disease Detection</h3>
+                <span>Aug 2024 - November 2024</span>
+                <p>Developed a machine learning model aimed at early detection of cancer based on patient medical data and imaging. Utilized supervised learning algorithms, such as Support Vector Machines (SVM) and Random Forest, to classify and predict the presence of cancerous cells. Processed large datasets, including clinical data and histopathological images, with techniques like feature extraction, normalization, and dimensionality reduction. Achieved high accuracy rates in predicting cancer diagnoses by fine-tuning hyperparameters and optimizing model performance. This project aims to aid healthcare professionals in making faster, more reliable diagnoses for early intervention.</p>
+                <ul>
+                    <li>Machine Learning</li>
+                    <li>Dataset Handling</li>
+                </ul>
+            </div>
+        </div>
+        <img src="P3.jpeg">
+        <div>
+            <div>
+                <h3>Innovative Hospital Management System Developed with MERN Stack</h3>
+                <span>Jun 2024 - Jul 2024</span>
+                <p>Thrilled to announce the successful development of a Hospital Management System using the MERN stack! This project harnesses the power of MongoDB, Express.js, React, and Node.js to streamline hospital operations, improve patient management, and enhance overall healthcare services. I am excited about the impact this system can have on efficiency and patient care. Looking forward to further refining this project and exploring new opportunities in health tech!</p>
+                <ul>
+                    <li>MERN Full Stack</li>
+                </ul>
+            </div>
+        </div>
+        <img src="P4.jpeg">
+        <div>
+            <div>
+                <h3>Gas Detection Using Raspberry Pi</h3>
+                <span>Jul 2023 - Dec 2023</span>
+                <p>Detecting gas using a Raspberry pi can be achieved by interfacing gas sensors with the Raspberry pi and writing a program to monitor and analyze sensor readings.</p>
+                <ul>
+                    <li>Internet of Things (IOT)</li>
+                </ul>
+            </div>
+        </div>
+        <img src="P5.jpeg">
+    </div>
+    <div id="skills">
+        <h2>Skills</h2>
+        <div>
+            <div style="grid-row : span 2">
+                <img src="S1.jpeg">
+                <div style="background-color: rgba(95,117,95,0.6);">UX Design</div>
+            </div>
+            <div style="grid-row : span 3; background-color : rgba(220,190,255,0.4); color : rgb(110,95,127)"><div>Experienced in machine learning, with expertise in data preprocessing, feature engineering, model training, and algorithm optimization to develop accurate and scalable predictive models.</div><span>Intermediate</span></div>
+            <div style="grid-row : span 2">
+                <img src="S2.jpeg">
+                <div style="background-color: rgba(95,110,117,0.6);">Full Stack</div>
+            </div>
+            <div style="grid-row : span 3; background-color : rgba(255,235,190,0.4); color : rgb(127,117,95)"><div>With expertise in sensor integration, data collection, and building scalable systems for real-time monitoring and automation.</div><span>Intermediate</span></div>
+            <div style="grid-row : span 3; background-color : rgba(190,235,190,0.4); color : rgb(95,117,95)"><div>Proficient in UX design, with a strong ability to create intuitive, user-centered interfaces through research, wireframing, prototyping, and iterative testing to ensure optimal user experience.</div><span>Advanced</span></div>
+            <div style="grid-row : span 3; background-color : rgba(190,220,235,0.4); color : rgb(95,110,117)"><div>Proficient in front-end (HTML, CSS, JS, React) and back-end (Node.js, Express, MongoDB) technologies to build end-to-end web applications.</div><span>Andvanced</span></div>
+            <div style="grid-row : span 2">
+                <img src="S3.jpeg">
+                <div style="background-color: rgba(110,95,127,0.6);">Machine Learning</div>
+            </div>
+            <div style="grid-row : span 2">
+                <img src="S4.jpeg">
+                <div style="background-color: rgba(127,117,95,0.6);">IOT</div>
+            </div>
+        </div>
+    </div>
+    <div id="contact">
+        <div onclick="window.location='https://www.linkedin.com/in/jesse-angelina-palakonda-15ba5a2b1/'">
+            <div>
+                <img src="https://cdn-icons-png.flaticon.com/512/61/61109.png">
+                <p>LinkedIn</p>
+            </div>
+            <img src="https://static.thenounproject.com/png/888647-200.png">
+        </div>
+        <div onclick="window.location='https://github.com/JesseAngelina'">
+            <div>
+                <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png">
+                <p>GitHub</p>
+            </div>
+            <img src="https://static.thenounproject.com/png/888647-200.png">
+        </div>
+        <div onclick="window.location='mailto:jesseangelina03@gmail.com'">
+            <div>
+                <img src="https://cdn-icons-png.flaticon.com/512/542/542689.png">
+                <p>Email</p>
+            </div>
+            <img src="https://static.thenounproject.com/png/888647-200.png">
+        </div>
+    </div>
+    <script>
+        const edu = document.querySelectorAll("#education > div");
+        function change_edu(n) {
+            for(let i = 1; i<=3; i++) {
+                if(n==i)
+                    edu[i].style.display = 'block';
+                else
+                    edu[i].style.display = 'none';
+            }
+        }
+        change_edu(1);
+
+        const tools = document.querySelectorAll("#tools > div > div");
+        function iterate() {
+            let temp;
+            for(x of tools) {
+                temp = x.style.left.slice(0, x.style.left.length-2)-1;
+                if(temp<-100)
+                    temp += 1400;
+                x.style.left = temp+"px";
+            }
+        }
+        setInterval(iterate, 25);
+
+        const cert = document.querySelectorAll("#certifications > div");
+        function sortCertificates() {
+            let temp = document.getElementById("certifications").getBoundingClientRect();
+            if(temp.top>=-100-650*(cert.length-1))
+                for(let i = 0; i<cert.length-1; i++)
+                    if(temp.top<-100-650*i) {
+                        cert[i].style.top = temp.top*-1+100+"px";
+                        cert[i].style.transform = "scale(0.95)";
+                    } else
+                        cert[i].style.transform = "scale(1)";
+        }
+        window.addEventListener('scroll', sortCertificates);
+
+        const proj = document.querySelectorAll("#projects > img");
+        function sortProjects() {
+            let temp = document.getElementById("projects").getBoundingClientRect();
+            if(temp.top<=-164 && temp.bottom-100>innerHeight)
+                for(let i = 0; i<proj.length; i++) {
+                    proj[i].style.top = temp.top*-1+innerHeight/2+"px";
+                    if(i==0) continue;
+                    if(temp.top+164-innerHeight/2<innerHeight*-3/4*i)
+                        proj[i].style.opacity = 1;
+                    else
+                        proj[i].style.opacity = 0;
+                }
+        }
+        window.addEventListener('scroll', sortProjects);
+    </script>
+</body>
+</html>
